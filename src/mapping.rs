@@ -31,6 +31,7 @@ impl DomainNodeMapping {
             "service" => BaseNodeType::Service,
             "event" => BaseNodeType::Event,
             "command" => BaseNodeType::Command,
+            "entity" => BaseNodeType::Entity,
             _ => BaseNodeType::Custom(type_str.to_string()),
         }
     }
@@ -44,6 +45,7 @@ impl DomainNodeMapping {
             BaseNodeType::Service => "service".to_string(),
             BaseNodeType::Event => "event".to_string(),
             BaseNodeType::Command => "command".to_string(),
+            BaseNodeType::Entity => "entity".to_string(),
             BaseNodeType::Custom(s) => s.clone(),
         }
     }
@@ -62,7 +64,7 @@ impl DomainRelationshipMapping {
             "sequence" => BaseRelationshipType::Sequence,
             "parallel" => BaseRelationshipType::Parallel,
             "choice" => BaseRelationshipType::Choice,
-
+            "hierarchy" => BaseRelationshipType::Hierarchy,
             _ => BaseRelationshipType::Custom(type_str.to_string()),
         }
     }
@@ -76,7 +78,7 @@ impl DomainRelationshipMapping {
             BaseRelationshipType::Sequence => "sequence".to_string(),
             BaseRelationshipType::Parallel => "parallel".to_string(),
             BaseRelationshipType::Choice => "choice".to_string(),
-
+            BaseRelationshipType::Hierarchy => "hierarchy".to_string(),
             BaseRelationshipType::Custom(s) => s.clone(),
         }
     }

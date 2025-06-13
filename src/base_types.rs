@@ -1,101 +1,26 @@
 //! Base types for the graph composition system
 //!
-//! This module provides generic types that can be used without depending on
-//! the main application's domain types.
+//! This module provides graph-specific types that work with
+//! the core domain types from cim-domain.
 
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::fmt;
-use std::marker::PhantomData;
 use uuid::Uuid;
 
-/// A generic entity with a typed ID
-#[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
-pub struct Entity<T> {
-    pub id: EntityId<T>,
-    pub created_at: std::time::SystemTime,
-    pub updated_at: std::time::SystemTime,
-}
+// Import core domain types from cim-domain
+pub use cim_domain::{Entity, EntityId};
 
-impl<T> Entity<T> {
-    pub fn new() -> Self {
-        let now = std::time::SystemTime::now();
-        Self {
-            id: EntityId::new(),
-            created_at: now,
-            updated_at: now,
-        }
-    }
-
-    pub fn with_id(id: EntityId<T>) -> Self {
-        let now = std::time::SystemTime::now();
-        Self {
-            id,
-            created_at: now,
-            updated_at: now,
-        }
-    }
-}
-
-/// A typed entity ID using phantom types for type safety
-/// These IDs are globally unique and persistent
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
-pub struct EntityId<T> {
-    id: Uuid,
-    #[serde(skip)]
-    _phantom: PhantomData<T>,
-}
-
-impl<T> EntityId<T> {
-    pub fn new() -> Self {
-        Self {
-            id: Uuid::new_v4(),
-            _phantom: PhantomData,
-        }
-    }
-
-    pub fn from_uuid(id: Uuid) -> Self {
-        Self {
-            id,
-            _phantom: PhantomData,
-        }
-    }
-
-    pub fn as_uuid(&self) -> &Uuid {
-        &self.id
-    }
-}
-
-impl<T> fmt::Display for EntityId<T> {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", self.id)
-    }
-}
-
-impl<T> Default for EntityId<T> {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
-/// Marker types for entity IDs
+// Re-export marker types from cim-domain for convenience
 pub mod markers {
-    use serde::{Deserialize, Serialize};
-
-    /// Marker for graph entities
-    #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
-    pub struct GraphMarker;
-
-    /// Marker for aggregate entities
-    #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
-    pub struct AggregateMarker;
-
-    /// Marker for bounded context entities
-    #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
-    pub struct BoundedContextMarker;
+    pub use cim_domain::markers::{
+        GraphMarker, AggregateMarker, BoundedContextMarker,
+        EntityMarker, ValueObjectMarker, ServiceMarker,
+        EventMarker, CommandMarker, QueryMarker
+    };
 }
 
-// Type aliases for common entity IDs
+// Type aliases using cim-domain types
 pub type GraphId = EntityId<markers::GraphMarker>;
 pub type AggregateId = EntityId<markers::AggregateMarker>;
 pub type BoundedContextId = EntityId<markers::BoundedContextMarker>;
@@ -153,6 +78,8 @@ pub enum BaseNodeType {
     Value,
     /// An entity reference node (contains EntityId)
     EntityReference,
+    /// An entity node (for cross-references)
+    Entity,
     /// An aggregate root node
     Aggregate,
     /// A service node
@@ -170,6 +97,7 @@ impl fmt::Display for BaseNodeType {
         match self {
             BaseNodeType::Value => write!(f, "Value"),
             BaseNodeType::EntityReference => write!(f, "EntityReference"),
+            BaseNodeType::Entity => write!(f, "Entity"),
             BaseNodeType::Aggregate => write!(f, "Aggregate"),
             BaseNodeType::Service => write!(f, "Service"),
             BaseNodeType::Command => write!(f, "Command"),
@@ -194,6 +122,8 @@ pub enum BaseRelationshipType {
     Parallel,
     /// Choice relationship (one of)
     Choice,
+    /// Hierarchy relationship (organizational)
+    Hierarchy,
     /// Custom relationship
     Custom(String),
 }
@@ -207,6 +137,7 @@ impl fmt::Display for BaseRelationshipType {
             BaseRelationshipType::Sequence => write!(f, "Sequence"),
             BaseRelationshipType::Parallel => write!(f, "Parallel"),
             BaseRelationshipType::Choice => write!(f, "Choice"),
+            BaseRelationshipType::Hierarchy => write!(f, "Hierarchy"),
             BaseRelationshipType::Custom(name) => write!(f, "Custom({})", name),
         }
     }
@@ -289,6 +220,7 @@ mod tests {
 
     #[test]
     fn test_entity_id_creation() {
+        // EntityId now comes from cim-domain
         let id1: GraphId = GraphId::new();
         let id2: GraphId = GraphId::new();
         assert_ne!(id1, id2);
@@ -312,6 +244,9 @@ mod tests {
 
         let entity_ref = BaseNodeType::EntityReference;
         assert_eq!(entity_ref.to_string(), "EntityReference");
+
+        let entity_node = BaseNodeType::Entity;
+        assert_eq!(entity_node.to_string(), "Entity");
     }
 
     #[test]

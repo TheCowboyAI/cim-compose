@@ -3,17 +3,43 @@ name = "cim-compose"
 version = "0.1.0"
 edition = "2021"
 authors = ["The Cowboy AI"]
-description = "A standalone graph composition library based on category theory"
+description = "A graph composition library that composes domain modules using category theory"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/thecowboyai/alchemist"
 keywords = ["graph", "composition", "category-theory", "domain-modeling"]
 categories = ["data-structures", "algorithms"]
 
 [dependencies]
+# Core domain dependency
+cim-domain = { path = "../cim-domain" }
+
+# Domain modules to compose
+cim-domain-document = { path = "../cim-domain-document", optional = true }
+cim-domain-graph = { path = "../cim-domain-graph", optional = true }
+cim-domain-person = { path = "../cim-domain-person", optional = true }
+cim-domain-workflow = { path = "../cim-domain-workflow", optional = true }
+cim-domain-location = { path = "../cim-domain-location", optional = true }
+cim-domain-agent = { path = "../cim-domain-agent", optional = true }
+cim-domain-organization = { path = "../cim-domain-organization", optional = true }
+cim-domain-conceptualspaces = { path = "../cim-domain-conceptualspaces", optional = true }
+
+# Core dependencies
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 thiserror = "2.0"
 uuid = { version = "1.11", features = ["v4", "serde"] }
+
+[features]
+default = []
+document = ["cim-domain-document"]
+graph = ["cim-domain-graph"]
+person = ["cim-domain-person"]
+workflow = ["cim-domain-workflow"]
+location = ["cim-domain-location"]
+agent = ["cim-domain-agent"]
+organization = ["cim-domain-organization"]
+conceptualspaces = ["cim-domain-conceptualspaces"]
+all-domains = ["document", "graph", "person", "workflow", "location", "agent", "organization", "conceptualspaces"]
 
 [dev-dependencies]
 pretty_assertions = "1.4"
