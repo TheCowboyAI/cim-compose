@@ -3,8 +3,7 @@
 //! This module provides traits and implementations for composing
 //! domain aggregates from various domain modules into graph structures.
 
-use crate::{GraphComposition, BaseNodeType, BaseRelationshipType, CompositionError, NodeId};
-use serde_json::json;
+use crate::{GraphComposition, CompositionError};
 
 /// Trait for types that can be composed into a GraphComposition
 pub trait Composable {
