@@ -98,7 +98,7 @@ fn main() {
     }
 
     println!("\n=== Domain Count ===");
-    let mut enabled_domains = Vec::new();
+    let enabled_domains: Vec<&str> = Vec::new();
     #[cfg(feature = "document")] enabled_domains.push("Document");
     #[cfg(feature = "graph")] enabled_domains.push("Graph");
     #[cfg(feature = "person")] enabled_domains.push("Person");

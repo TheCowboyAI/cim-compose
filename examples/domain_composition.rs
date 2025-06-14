@@ -6,7 +6,7 @@
 
 use cim_compose::{
     GraphComposition, BaseNodeType, BaseRelationshipType,
-    Entity, EntityId, markers::AggregateMarker,
+    Entity, markers::AggregateMarker,
 };
 use serde_json::json;
 
