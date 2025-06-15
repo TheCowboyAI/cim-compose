@@ -17,6 +17,7 @@ cim-domain = { path = "../cim-domain" }
 cim-domain-document = { path = "../cim-domain-document", optional = true }
 cim-domain-graph = { path = "../cim-domain-graph", optional = true }
 cim-domain-person = { path = "../cim-domain-person", optional = true }
+cim-domain-workflow = { path = "../cim-domain-workflow", optional = true }
 cim-domain-location = { path = "../cim-domain-location", optional = true }
 cim-domain-agent = { path = "../cim-domain-agent", optional = true }
 cim-domain-organization = { path = "../cim-domain-organization", optional = true }
@@ -33,6 +34,7 @@ default = []
 document = ["cim-domain-document"]
 graph = ["cim-domain-graph"]
 person = ["cim-domain-person"]
+workflow = ["cim-domain-workflow"]
 location = ["cim-domain-location"]
 agent = ["cim-domain-agent"]
 organization = ["cim-domain-organization"]
@@ -41,6 +43,7 @@ all-domains = [
     "document",
     "graph",
     "person",
+    "workflow",
     "location",
     "agent",
     "organization",
