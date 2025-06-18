@@ -102,7 +102,7 @@ impl fmt::Display for BaseNodeType {
             BaseNodeType::Service => write!(f, "Service"),
             BaseNodeType::Command => write!(f, "Command"),
             BaseNodeType::Event => write!(f, "Event"),
-            BaseNodeType::Custom(name) => write!(f, "Custom({})", name),
+            BaseNodeType::Custom(name) => write!(f, "Custom({name})"),
         }
     }
 }
@@ -138,7 +138,7 @@ impl fmt::Display for BaseRelationshipType {
             BaseRelationshipType::Parallel => write!(f, "Parallel"),
             BaseRelationshipType::Choice => write!(f, "Choice"),
             BaseRelationshipType::Hierarchy => write!(f, "Hierarchy"),
-            BaseRelationshipType::Custom(name) => write!(f, "Custom({})", name),
+            BaseRelationshipType::Custom(name) => write!(f, "Custom({name})"),
         }
     }
 }

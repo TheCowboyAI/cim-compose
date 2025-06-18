@@ -316,8 +316,7 @@ where
         for (i, invariant) in self.invariants.iter().enumerate() {
             if !invariant(self) {
                 return Err(CompositionError::InvariantViolation(format!(
-                    "Invariant {} failed",
-                    i
+                    "Invariant {i} failed"
                 )));
             }
         }
@@ -481,12 +480,12 @@ impl GraphComposition<BaseNodeType, BaseRelationshipType> {
         result.id = GraphId::new();
 
         // Add all nodes from other
-        for (_, node) in &other.nodes {
+        for node in other.nodes.values() {
             result.nodes.insert(node.id, node.clone());
         }
 
         // Add all edges from other
-        for (_, edge) in &other.edges {
+        for edge in other.edges.values() {
             result.edges.insert(edge.id, edge.clone());
         }
 
@@ -511,18 +510,18 @@ impl GraphComposition<BaseNodeType, BaseRelationshipType> {
         let mut result = GraphComposition::composite("Parallel");
 
         // Add all nodes from both graphs
-        for (_, node) in &self.nodes {
+        for node in self.nodes.values() {
             result.nodes.insert(node.id, node.clone());
         }
-        for (_, node) in &other.nodes {
+        for node in other.nodes.values() {
             result.nodes.insert(node.id, node.clone());
         }
 
         // Add all edges from both graphs
-        for (_, edge) in &self.edges {
+        for edge in self.edges.values() {
             result.edges.insert(edge.id, edge.clone());
         }
-        for (_, edge) in &other.edges {
+        for edge in other.edges.values() {
             result.edges.insert(edge.id, edge.clone());
         }
 
@@ -543,18 +542,18 @@ impl GraphComposition<BaseNodeType, BaseRelationshipType> {
         let mut result = GraphComposition::composite("Choice");
 
         // Add all nodes from both graphs
-        for (_, node) in &self.nodes {
+        for node in self.nodes.values() {
             result.nodes.insert(node.id, node.clone());
         }
-        for (_, node) in &other.nodes {
+        for node in other.nodes.values() {
             result.nodes.insert(node.id, node.clone());
         }
 
         // Add all edges from both graphs
-        for (_, edge) in &self.edges {
+        for edge in self.edges.values() {
             result.edges.insert(edge.id, edge.clone());
         }
-        for (_, edge) in &other.edges {
+        for edge in other.edges.values() {
             result.edges.insert(edge.id, edge.clone());
         }
 
@@ -580,12 +579,12 @@ where
         let mut result = self.clone();
 
         // Add all nodes from other
-        for (_, node) in &other.nodes {
+        for node in other.nodes.values() {
             result.nodes.insert(node.id, node.clone());
         }
 
         // Add all edges from other
-        for (_, edge) in &other.edges {
+        for edge in other.edges.values() {
             result.edges.insert(edge.id, edge.clone());
         }
 
