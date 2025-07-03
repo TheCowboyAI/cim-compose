@@ -15,7 +15,7 @@ fn main() {
     let document_entity = Entity::<AggregateMarker>::new();
     let document_id = document_entity.id;
 
-    println!("Created Document Entity: {}", document_id);
+    println!("Created Document Entity: {document_id}");
 
     // Compose the document into a graph structure using cim-compose
     let mut document_graph = GraphComposition::aggregate("Document", document_id.to_string())
@@ -50,9 +50,9 @@ fn main() {
         .add_edge_by_label("content", "semantic", BaseRelationshipType::Custom("EmbeddedFrom".to_string()));
 
     println!("\nDocument Graph Structure:");
-    println!("- Root: {} (Document Aggregate)", document_graph.composition_root);
-    println!("- Nodes: {} total", document_graph.nodes.len());
-    println!("- Edges: {} total", document_graph.edges.len());
+    println!("- Root: {document_graph.composition_root} (Document Aggregate)");
+    println!("- Nodes: {document_graph.nodes.len(} total"));
+    println!("- Edges: {document_graph.edges.len(} total"));
 
     // Demonstrate composition with related documents
     let related_doc = GraphComposition::atomic("RelatedDocument", json!({
@@ -65,11 +65,11 @@ fn main() {
     match document_graph.parallel(&related_doc) {
         Ok(knowledge_graph) => {
             println!("\nKnowledge Graph Created:");
-            println!("- Total nodes: {}", knowledge_graph.nodes.len());
-            println!("- Total edges: {}", knowledge_graph.edges.len());
+            println!("- Total nodes: {knowledge_graph.nodes.len(}"));
+            println!("- Total edges: {knowledge_graph.edges.len(}"));
             println!("- Can be used for semantic search and navigation");
         }
-        Err(e) => println!("Composition failed: {}", e),
+        Err(e) => println!("Composition failed: {e}"),
     }
 
     // Show how this fits into the document processing pipeline

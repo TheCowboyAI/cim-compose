@@ -10,8 +10,8 @@ fn main() {
     let workflow_graph = create_workflow_graph();
     let data_model_graph = create_data_model_graph();
 
-    println!("Created workflow graph with ID: {}", workflow_graph.id);
-    println!("Created data model graph with ID: {}", data_model_graph.id);
+    println!("Created workflow graph with ID: {workflow_graph.id}");
+    println!("Created data model graph with ID: {data_model_graph.id}");
 
     // Entity links are just graphs themselves!
     // They contain EntityReference nodes that point to other entities
@@ -21,15 +21,13 @@ fn main() {
         "Workflow processes data from model"
     );
 
-    println!("\nCreated dependency link graph with ID: {}", dependency_graph.id);
+    println!("\nCreated dependency link graph with ID: {dependency_graph.id}");
     println!("This graph represents the relationship between the two entities");
 
     // Show the structure of the link graph
     for (_, node) in &dependency_graph.nodes {
         if node.node_type == BaseNodeType::EntityReference {
-            println!("  - Node '{}' references entity: {}",
-                node.label,
-                node.data.get("entity_id").unwrap_or(&serde_json::json!("unknown"))
+            println!("  - Node '{node.label}' references entity: {node.data.get("entity_id"}").unwrap_or(&serde_json::json!("unknown"))
             );
         }
     }
@@ -41,8 +39,7 @@ fn main() {
         (dependency_graph.id, "Dependencies"),
     ]);
 
-    println!("\nCreated system overview graph with {} entity references",
-        system_overview.nodes.values()
+    println!("\nCreated system overview graph with {system_overview.nodes.values(} entity references")
             .filter(|n| n.node_type == BaseNodeType::EntityReference)
             .count()
     );
@@ -54,10 +51,10 @@ fn main() {
     // - Even the overview of all these things is a graph
 
     println!("\nAll of these are entities with persistent IDs:");
-    println!("  - Workflow: {}", workflow_graph.id);
-    println!("  - Data Model: {}", data_model_graph.id);
-    println!("  - Dependency Link: {}", dependency_graph.id);
-    println!("  - System Overview: {}", system_overview.id);
+    println!("  - Workflow: {workflow_graph.id}");
+    println!("  - Data Model: {data_model_graph.id}");
+    println!("  - Dependency Link: {dependency_graph.id}");
+    println!("  - System Overview: {system_overview.id}");
 
     // When these graphs change, those changes would be tracked via IPLD/CID chains
     // in the event store, not in the graph structure itself

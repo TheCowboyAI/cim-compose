@@ -138,7 +138,7 @@ impl MockCompositionEventStore {
         &mut self,
         event: CompositionDomainEvent,
     ) -> Result<(String, Cid, Option<Cid>), String> {
-        let event_id = format!("evt_{}", self.events.len());
+        let event_id = format!("evt_{self.events.len(}"));
         let previous_cid = self.events.last().map(|e| e.cid.clone());
         
         // Calculate CID including previous CID
@@ -171,10 +171,7 @@ impl MockCompositionEventStore {
             let previous = &self.events[i - 1];
             
             if current.previous_cid.as_ref() != Some(&previous.cid) {
-                return Err(format!(
-                    "Chain broken at sequence {}: expected {:?}, got {:?}",
-                    i, previous.cid, current.previous_cid
-                ));
+                return Err(format!("Chain broken at sequence {i}: expected {:?}, got {:?}", previous.cid, current.previous_cid));
             }
         }
 
@@ -248,9 +245,7 @@ impl CompositionEventStreamValidator {
 
     pub fn validate(&self) -> Result<(), String> {
         if self.captured_events.len() != self.expected_events.len() {
-            return Err(format!(
-                "Event count mismatch: expected {}, got {}",
-                self.expected_events.len(),
+            return Err(format!("Event count mismatch: expected {self.expected_events.len(}, got {}"),
                 self.captured_events.len()
             ));
         }
@@ -260,10 +255,7 @@ impl CompositionEventStreamValidator {
             .enumerate()
         {
             if expected != actual {
-                return Err(format!(
-                    "Event mismatch at position {}: expected {:?}, got {:?}",
-                    i, expected, actual
-                ));
+                return Err(format!("Event mismatch at position {i}: expected {:?}, got {:?}", expected, actual));
             }
         }
 
@@ -437,9 +429,9 @@ mod tests {
         // Add some events
         for i in 0..3 {
             store.append_event(CompositionDomainEvent::GraphCreated {
-                graph_id: format!("graph-{}", i),
+                graph_id: format!("graph-{i}"),
                 composition_type: "Aggregate".to_string(),
-                root_node_id: format!("agg-{}", i),
+                root_node_id: format!("agg-{i}"),
                 timestamp: SystemTime::now(),
             }).unwrap();
         }

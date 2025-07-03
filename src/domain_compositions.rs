@@ -144,7 +144,7 @@ pub mod graph {
             // Add nodes from the concept graph
             for (domain_node_id, node) in self.nodes() {
                 let local_node_id = NodeId::new();
-                let node_label = format!("node_{}", domain_node_id);
+                let node_label = format!("node_{domain_node_id}");
 
                 graph = graph.add_node_with_id(
                     local_node_id,
@@ -488,7 +488,7 @@ pub mod organization {
 
             // Add child units
             for (idx, child_id) in self.child_units.iter().enumerate() {
-                let child_label = format!("child_{}", idx);
+                let child_label = format!("child_{idx}");
                 graph = graph.add_node(
                     BaseNodeType::Entity,
                     &child_label,
@@ -599,7 +599,7 @@ pub mod conceptualspaces {
 
             // Add dimensions
             for (idx, dim_id) in self.space().dimension_ids.iter().enumerate() {
-                let dim_label = format!("dimension_{}", idx);
+                let dim_label = format!("dimension_{idx}");
                 graph = graph.add_node(
                     BaseNodeType::Value,
                     &dim_label,
@@ -613,7 +613,7 @@ pub mod conceptualspaces {
 
             // Add regions
             for (region_id, region) in &self.space().regions {
-                let region_label = format!("region_{}", region_id);
+                let region_label = format!("region_{region_id}");
                 graph = graph.add_node(
                     BaseNodeType::Custom("ConvexRegion".to_string()),
                     &region_label,

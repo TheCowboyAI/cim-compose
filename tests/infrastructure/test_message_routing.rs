@@ -102,7 +102,7 @@ impl CompositionHandler for GraphCreationHandler {
         match command {
             CompositionCommand::CreateGraph { graph_id, composition_type } => {
                 HandlerResponse::Success {
-                    message: format!("Created {} graph with id {}", composition_type, graph_id),
+                    message: format!("Created {composition_type} graph with id {graph_id}"),
                 }
             }
             _ => HandlerResponse::Error {
@@ -143,7 +143,7 @@ impl CompositionHandler for NodeOperationHandler {
         match command {
             CompositionCommand::AddNode { graph_id, node_id, node_type } => {
                 HandlerResponse::Success {
-                    message: format!("Added {} node {} to graph {}", node_type, node_id, graph_id),
+                    message: format!("Added {node_type} node {node_id} to graph {graph_id}"),
                 }
             }
             _ => HandlerResponse::Error {
@@ -359,9 +359,7 @@ impl RouterEventValidator {
 
     pub fn validate(&self) -> Result<(), String> {
         if self.captured_events.len() != self.expected_events.len() {
-            return Err(format!(
-                "Event count mismatch: expected {}, got {}",
-                self.expected_events.len(),
+            return Err(format!("Event count mismatch: expected {self.expected_events.len(}, got {}"),
                 self.captured_events.len()
             ));
         }
@@ -371,10 +369,7 @@ impl RouterEventValidator {
             .enumerate()
         {
             if expected != actual {
-                return Err(format!(
-                    "Event mismatch at position {}: expected {:?}, got {:?}",
-                    i, expected, actual
-                ));
+                return Err(format!("Event mismatch at position {i}: expected {:?}, got {:?}", expected, actual));
             }
         }
 
@@ -590,7 +585,7 @@ mod tests {
                 let router_clone = router.clone();
                 std::thread::spawn(move || {
                     let command = CompositionCommand::CreateGraph {
-                        graph_id: format!("g{}", i),
+                        graph_id: format!("g{i}"),
                         composition_type: "Concurrent".to_string(),
                     };
                     router_clone.route_command(&command)

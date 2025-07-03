@@ -22,11 +22,11 @@ fn main() {
 
         println!("\n=== Document Processing Pipeline ===");
         let pipeline = create_processing_pipeline();
-        println!("Created pipeline with {} nodes", pipeline.nodes.len());
+        println!("Created pipeline with {pipeline.nodes.len(} nodes"));
         println!("Pipeline stages:");
         for (_, node) in &pipeline.nodes {
             if node.label != "root" {
-                println!("  - {}: {}", node.label, node.data["type"]);
+                println!("  - {node.label}: {node.data["type"]}");
             }
         }
     }
@@ -37,14 +37,14 @@ fn main() {
 
         println!("\n=== Agent Network ===");
         let network = create_agent_network();
-        println!("Created agent network with {} nodes", network.nodes.len());
+        println!("Created agent network with {network.nodes.len(} nodes"));
         println!("Agent types and capabilities:");
         for (_, node) in &network.nodes {
             if node.label != "root" {
                 if let Some(node_type) = node.data.get("type") {
-                    println!("  - {}: {}", node.label, node_type);
+                    println!("  - {node.label}: {node_type}");
                 } else if let Some(name) = node.data.get("name") {
-                    println!("  - {}: {}", node.label, name);
+                    println!("  - {node.label}: {name}");
                 }
             }
         }
@@ -56,11 +56,11 @@ fn main() {
 
         println!("\n=== Organizational Hierarchy ===");
         let hierarchy = create_org_hierarchy();
-        println!("Created org hierarchy with {} levels", hierarchy.nodes.len() - 1);
+        println!("Created org hierarchy with {hierarchy.nodes.len(} levels") - 1);
         println!("Hierarchy levels:");
         for (_, node) in &hierarchy.nodes {
             if node.label != "root" {
-                println!("  - {}: {}", node.data["level"], node.data["description"]);
+                println!("  - {node.data["level"]}: {node.data["description"]}");
             }
         }
     }
@@ -88,11 +88,11 @@ fn main() {
 
         println!("\n=== Conceptual Space Visualization ===");
         let viz = create_conceptual_space_viz();
-        println!("Created conceptual space visualization with {} components", viz.nodes.len() - 1);
+        println!("Created conceptual space visualization with {viz.nodes.len(} components") - 1);
         println!("Components:");
         for (_, node) in &viz.nodes {
             if node.label != "root" {
-                println!("  - {}: {}", node.data["type"], node.data["description"]);
+                println!("  - {node.data["type"]}: {node.data["description"]}");
             }
         }
     }
@@ -108,8 +108,8 @@ fn main() {
     #[cfg(feature = "organization")] enabled_domains.push("Organization");
     #[cfg(feature = "conceptualspaces")] enabled_domains.push("ConceptualSpaces");
 
-    println!("Enabled domains: {} of 8", enabled_domains.len());
+    println!("Enabled domains: {enabled_domains.len(} of 8"));
     if !enabled_domains.is_empty() {
-        println!("  - {}", enabled_domains.join("\n  - "));
+        println!("  - {enabled_domains.join("\n  - "}"));
     }
 }
