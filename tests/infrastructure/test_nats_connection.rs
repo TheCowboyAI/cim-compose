@@ -298,7 +298,8 @@ impl NatsEventValidator {
 
     pub fn validate(&self) -> Result<(), String> {
         if self.captured_events.len() != self.expected_events.len() {
-            return Err(format!("Event count mismatch: expected {self.expected_events.len(}, got {}"),
+            return Err(format!("Event count mismatch: expected {}, got {}",
+                self.expected_events.len(),
                 self.captured_events.len()
             ));
         }

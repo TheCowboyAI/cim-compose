@@ -22,7 +22,7 @@ fn main() {
 
         println!("\n=== Document Processing Pipeline ===");
         let pipeline = create_processing_pipeline();
-        println!("Created pipeline with {pipeline.nodes.len(} nodes"));
+        println!("Created pipeline with {} nodes", pipeline.nodes.len());
         println!("Pipeline stages:");
         for (_, node) in &pipeline.nodes {
             if node.label != "root" {
@@ -37,7 +37,7 @@ fn main() {
 
         println!("\n=== Agent Network ===");
         let network = create_agent_network();
-        println!("Created agent network with {network.nodes.len(} nodes"));
+        println!("Created agent network with {} nodes", network.nodes.len());
         println!("Agent types and capabilities:");
         for (_, node) in &network.nodes {
             if node.label != "root" {
@@ -56,7 +56,7 @@ fn main() {
 
         println!("\n=== Organizational Hierarchy ===");
         let hierarchy = create_org_hierarchy();
-        println!("Created org hierarchy with {hierarchy.nodes.len(} levels") - 1);
+        println!("Created org hierarchy with {} levels", hierarchy.nodes.len() - 1);
         println!("Hierarchy levels:");
         for (_, node) in &hierarchy.nodes {
             if node.label != "root" {
@@ -88,7 +88,7 @@ fn main() {
 
         println!("\n=== Conceptual Space Visualization ===");
         let viz = create_conceptual_space_viz();
-        println!("Created conceptual space visualization with {viz.nodes.len(} components") - 1);
+        println!("Created conceptual space visualization with {} components", viz.nodes.len() - 1);
         println!("Components:");
         for (_, node) in &viz.nodes {
             if node.label != "root" {
@@ -98,7 +98,7 @@ fn main() {
     }
 
     println!("\n=== Domain Count ===");
-    let enabled_domains: Vec<&str> = Vec::new();
+    let mut enabled_domains: Vec<&str> = Vec::new();
     #[cfg(feature = "document")] enabled_domains.push("Document");
     #[cfg(feature = "graph")] enabled_domains.push("Graph");
     #[cfg(feature = "person")] enabled_domains.push("Person");
@@ -108,8 +108,8 @@ fn main() {
     #[cfg(feature = "organization")] enabled_domains.push("Organization");
     #[cfg(feature = "conceptualspaces")] enabled_domains.push("ConceptualSpaces");
 
-    println!("Enabled domains: {enabled_domains.len(} of 8"));
+    println!("Enabled domains: {} of 8", enabled_domains.len());
     if !enabled_domains.is_empty() {
-        println!("  - {enabled_domains.join("\n  - "}"));
+        println!("  - {}", enabled_domains.join("\n  - "));
     }
 }

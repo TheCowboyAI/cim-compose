@@ -138,7 +138,7 @@ impl MockCompositionEventStore {
         &mut self,
         event: CompositionDomainEvent,
     ) -> Result<(String, Cid, Option<Cid>), String> {
-        let event_id = format!("evt_{self.events.len(}"));
+        let event_id = format!("evt_{}", self.events.len());
         let previous_cid = self.events.last().map(|e| e.cid.clone());
         
         // Calculate CID including previous CID
@@ -245,7 +245,8 @@ impl CompositionEventStreamValidator {
 
     pub fn validate(&self) -> Result<(), String> {
         if self.captured_events.len() != self.expected_events.len() {
-            return Err(format!("Event count mismatch: expected {self.expected_events.len(}, got {}"),
+            return Err(format!("Event count mismatch: expected {}, got {}",
+                self.expected_events.len(),
                 self.captured_events.len()
             ));
         }
