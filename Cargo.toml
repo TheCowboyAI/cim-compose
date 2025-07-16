@@ -11,7 +11,7 @@ categories = ["data-structures", "algorithms"]
 
 [dependencies]
 # Core domain dependency
-cim-domain = { path = "../cim-domain" }
+cim-domain = { git = "https://github.com/TheCowboyAI/cim-domain.git", branch = "main" }
 
 # Domain modules to compose
 cim-domain-document = { path = "../cim-domain-document", optional = true }
